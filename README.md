@@ -1,5 +1,7 @@
 # Simple 3D Map
 
+![minimap_overall](https://github.com/user-attachments/assets/619a8c81-40c3-47d1-a80f-a6f11f8d6772)
+
 ## Introduction
 
 This project goal is to demonstrate and experiment mesh instancing to display a heightmap in 3D.To this end, we will use the [Godot Engine](https://github.com/godotengine/godot).
