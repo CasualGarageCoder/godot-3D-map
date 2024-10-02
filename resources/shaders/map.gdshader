@@ -13,6 +13,8 @@ uniform float band : hint_range(0.0, 1.0, 0.01) = .2;
 // 0 = no attenuation, 1 = full merge.
 uniform float distance_smooth : hint_range(0., 1.) = .5;
 
+varying float cell_level;
+
 // INSTANCE_CUSTOM :
 // x => [0, 1] : Distance from the center.
 // y => Old cell height.
@@ -38,12 +40,16 @@ void vertex() {
 		} else {
 			target = INSTANCE_CUSTOM.z;
 		}
-
 		float updated_target = (INSTANCE_CUSTOM.z * distance_smooth) + (height * (1. - distance_smooth));
 		float updated_height = (updated_target * INSTANCE_CUSTOM.x) + (height * (1. - INSTANCE_CUSTOM.x));
 		ratio = updated_height * p + (target * (1. - p));
 	}
 
+	cell_level = ratio / height;
 	VERTEX.y *= ratio;
 	VERTEX.y += ratio / 2.;
+}
+
+void fragment() {
+	ALBEDO = smoothstep(vec3(1., 0., 0.), vec3(0., 0.4, 1.0), vec3(cell_level));
 }

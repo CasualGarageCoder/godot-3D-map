@@ -46,10 +46,10 @@ environment = SubResource("Environment_3mskd")
 
 [node name="Light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.97709, -0.108641, 0.183008, 1.30903e-08, 0.859897, 0.510468, -0.212826, -0.498773, 0.840197, 7.57554, 0.616968, 12.2388)
-light_color = Color(0.57712, 0.64948, 0.401763, 1)
 directional_shadow_mode = 0
 
 [node name="BackLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.900319, -0.197591, -0.387794, -0.336067, -0.881782, -0.330937, -0.27656, 0.428273, -0.860289, 10.4151, 0.720117, 5.44919)
-light_color = Color(0.1254, 0.33, 0.13222, 1)
+light_color = Color(0.504305, 0.639676, 0.721716, 1)
+light_energy = 0.5
 directional_shadow_mode = 0
