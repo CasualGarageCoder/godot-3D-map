@@ -70,7 +70,6 @@ func _input(event : InputEvent) -> void:
 	var update_camera : bool = false
 	match event.get_class():
 		"InputEventKey":
-			# TODO Make smooth transition on camera height and with cell status.
 			if event.pressed and not event.echo:
 				match event.keycode:
 					KEY_ENTER:
@@ -80,7 +79,6 @@ func _input(event : InputEvent) -> void:
 							noise.set_seed(new_seed)
 							generate_heightmap()
 							update_heightmap_instances()
-							#reset_transforms()
 		"InputEventMouseButton":
 			var bevent : InputEventMouseButton = event
 			match bevent.button_index:
@@ -143,8 +141,6 @@ func update_heightmap_instances() -> void:
 
 func set_shader_progress(value : float) -> void:
 	map.material_override.set_shader_parameter("progress", value)
-	#map.set_instance_shader_parameter("progress", value)
-
 
 # Model ------------------------------------------------------------------------
 
