@@ -67,7 +67,6 @@ func _ready() -> void:
 # Control ----------------------------------------------------------------------
 
 func _input(event : InputEvent) -> void:
-	var update_camera : bool = false
 	match event.get_class():
 		"InputEventKey":
 			if event.pressed and not event.echo:
@@ -87,7 +86,6 @@ func _input(event : InputEvent) -> void:
 				MOUSE_BUTTON_WHEEL_UP:
 					distance *= mouse_zoom_in_ratio
 					distance = max(1, distance)
-					update_camera = true
 				MOUSE_BUTTON_WHEEL_DOWN:
 					distance *= mouse_zoom_out_ratio
 					distance = min(max(size.x, size.y) * 5, distance)
@@ -144,7 +142,7 @@ func set_shader_progress(value : float) -> void:
 
 # Model ------------------------------------------------------------------------
 
-func _process(delta : float) -> void:
+func _process(_delta : float) -> void:
 	current_midpoint = lerp(current_midpoint, mid_point, 0.09)
 	current_angles = lerp(current_angles, angles, 0.09)
 	current_distance = lerp(current_distance, distance, 0.09)
@@ -167,17 +165,15 @@ func init_heightmaps() -> void:
 
 # Generate heightmap based on noise
 func generate_heightmap() -> void:
-	var point_count : int = size.x * size.y
-
 	var tmp : PackedVector3Array = heightmap
 	heightmap = previous_heightmap
 	previous_heightmap = tmp
 	var idx : int = 0
-	var max : float = 0
+	var mx : float = 0
 	for y in range(size.y):
 		for x in range(size.x):
 			var h : float = 0. if noise == null else ((clampf(noise.get_noise_2d(x, y), -1.0, 1.0) + 1.0) / 2.0) * height
 			heightmap[idx].z = h
-			max = max(max, h)
+			mx = max(mx, h)
 			idx = idx + 1
-	map.material_override.set_shader_parameter("height", max)
+	map.material_override.set_shader_parameter("height", mx)
